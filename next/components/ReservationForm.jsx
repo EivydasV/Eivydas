@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useContext, useState } from 'react'
 import { Formik, Field, Form } from 'formik'
 import { Dialog, Transition } from '@headlessui/react'
 import ReservationDialog from './ReservationDialog'
@@ -9,10 +9,13 @@ import DatePicker from '@mui/lab/DatePicker'
 import TimePicker from '@mui/lab/TimePicker'
 import { IoCloseCircleSharp } from 'react-icons/io5'
 import * as Yup from 'yup'
+import { IsDialogOpened } from '../context/DialogOpen'
 
 export default function ReservationForm() {
   const [date, setDate] = useState(null)
   const [time, setTime] = useState(null)
+  const { isDialogOpened, setIsDialogOpened } = useContext(IsDialogOpened)
+
   const onSubmit = async (values) => {
     console.log(values)
   }
@@ -45,7 +48,10 @@ export default function ReservationForm() {
           className='text-xl font-bold border-b border-white/10 pb-1 flex justify-between items-center'
         >
           Reservation
-          <IoCloseCircleSharp className='cursor-pointer' />
+          <IoCloseCircleSharp
+            className='cursor-pointer'
+            onClick={() => setIsDialogOpened(false)}
+          />
         </Dialog.Title>
         <div className=''>
           <Formik

@@ -1,18 +1,19 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useContext, useState } from 'react'
 import { Formik, Field, Form } from 'formik'
 import { Dialog, Transition } from '@headlessui/react'
 import ReservationForm from './ReservationForm'
+import { IsDialogOpened } from '../context/DialogOpen'
 export default function ReservationDialog({ children }) {
-  let [isOpen, setIsOpen] = useState(true)
+  const { isDialogOpened, setIsDialogOpened } = useContext(IsDialogOpened)
   return (
     <>
       <div>
-        <Transition appear show={isOpen} as={Fragment}>
+        <Transition appear show={isDialogOpened} as={Fragment}>
           <Dialog
             as='div'
             className='fixed inset-0 z-10 overflow-y-auto'
-            onClick={() => setIsOpen(false)}
-            onClose={() => setIsOpen(true)}
+            onClick={() => setIsDialogOpened(false)}
+            onClose={() => setIsDialogOpened(true)}
           >
             <div className='min-h-screen px-4 text-center'>
               <Transition.Child
