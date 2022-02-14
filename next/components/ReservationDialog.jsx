@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from 'react'
 import { Formik, Field, Form } from 'formik'
 import { Dialog, Transition } from '@headlessui/react'
+import ReservationForm from './ReservationForm'
 export default function ReservationDialog({ children }) {
   let [isOpen, setIsOpen] = useState(true)
-  const [showLogin, setShowlogin] = useState(true)
   return (
     <>
       <div>
@@ -12,7 +12,7 @@ export default function ReservationDialog({ children }) {
             as='div'
             className='fixed inset-0 z-10 overflow-y-auto'
             onClick={() => setIsOpen(false)}
-            onClose={() => setIsOpen(false)}
+            onClose={() => setIsOpen(true)}
           >
             <div className='min-h-screen px-4 text-center'>
               <Transition.Child
@@ -34,7 +34,7 @@ export default function ReservationDialog({ children }) {
               >
                 &#8203;
               </span>
-              {children}
+              <ReservationForm />
             </div>
           </Dialog>
         </Transition>

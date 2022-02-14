@@ -9,7 +9,7 @@ import {
 import useIntersection from '../hooks/useIntersection'
 import Nav from './Nav'
 export default function Header() {
-  const [openNav, setopenNav] = useState(false)
+  const [openNav, setopenNav] = useState(true)
   return (
     <header className='px-12 py-4 lg:flex-row lg:items-center flex-col bg-slate-800 flex lg:justify-between shadow-slate-800'>
       <div className='flex justify-between items-center flex-grow'>

@@ -19,12 +19,16 @@ export default function Nav({ openNav }) {
               Pradinis puslapis
             </h4>
           </Link>
-          <Link href='/'>
-            <h4 className='font-semibold flex items-center gap-2 cursor-pointer transition-colors py-2 px-4 rounded-full shadow-[0px_0px_5px_rgba(87,87,87,0.39)] shadow-sky-500 hover:text-white hover:bg-sky-500'>
-              <IoAccessibility />
-              Darbuotjų zona
-            </h4>
-          </Link>
+
+          <h4
+            as={Link}
+            href='/staffZone'
+            className='font-semibold flex items-center gap-2 cursor-pointer transition-colors py-2 px-4 rounded-full shadow-[0px_0px_5px_rgba(87,87,87,0.39)] shadow-sky-500 hover:text-white hover:bg-sky-500'
+          >
+            <IoAccessibility />
+            Darbuotjų zona
+          </h4>
+
           <Link href='/'>
             <h4 className='font-semibold flex items-center gap-2 cursor-pointer transition-colors py-2 px-4 rounded-full shadow-[0px_0px_5px_rgba(87,87,87,0.39)] shadow-sky-500 hover:text-white hover:bg-sky-500'>
               <IoBody />

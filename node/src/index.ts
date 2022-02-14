@@ -17,7 +17,6 @@ import cookieParser from 'cookie-parser'
 //@ts-ignore
 import xss from 'xss-clean'
 import path from 'path'
-import deserializeUser from './middlewares/deserializeUser'
 import mongoose from 'mongoose'
 
 process.on('uncaughtException', (error) => {
@@ -33,14 +32,12 @@ app.use(cors({ credentials: true }))
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use(cookieParser(config.get<string>('cookieSecret')))
+app.use(cookieParser())
 app.use(hpp())
 app.use(mongoSanitize())
 app.use(xss())
 
 app.use('/public', express.static(path.join(__dirname, 'public')))
-
-app.use(deserializeUser)
 
 app.use('/api/v1', Router)
 

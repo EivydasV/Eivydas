@@ -1,5 +1,4 @@
 import createError from 'http-errors'
-import { createUserValidation } from './../validation/user.validation'
 import { RequestHandler } from 'express'
 import { AnyZodObject } from 'zod'
 import log from '../utils/logger'

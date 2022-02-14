@@ -5,7 +5,7 @@ export default function staffZone() {
   return (
     <div>
       hghghg
-      <ReservationForm />
+      <ReservationDialog />
     </div>
   )
 }
