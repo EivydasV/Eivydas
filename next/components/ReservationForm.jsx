@@ -10,25 +10,37 @@ import TimePicker from '@mui/lab/TimePicker'
 import { IoCloseCircleSharp } from 'react-icons/io5'
 import * as Yup from 'yup'
 import { IsDialogOpened } from '../context/DialogOpen'
+import axios from 'axios'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 
 export default function ReservationForm() {
   const [date, setDate] = useState(null)
   const [time, setTime] = useState(null)
+  const [kayak, setKayak] = useState('')
   const { isDialogOpened, setIsDialogOpened } = useContext(IsDialogOpened)
 
   const onSubmit = async (values) => {
     console.log(values)
+    try {
+      const createReservation = await axios.post(
+        'http://localhost:5000/api/v1/reservation',
+        values
+      )
+      console.log(createReservation)
+    } catch (e) {
+      console.log(e.response.data)
+    }
   }
-  const phoneRegExp =
-    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
   const ReservationSchema = Yup.object().shape({
     name: Yup.string()
       .min(2, 'Too Short!')
       .max(50, 'Too Long!')
       .required('Required'),
-    phoneNumber: Yup.string()
-      .matches(phoneRegExp, 'Phone number is not valid')
-      .required('Required'),
+    phoneNumber: Yup.string().required('Required'),
     date: Yup.date().required('Required'),
     time: Yup.date().required('Required'),
   })
@@ -56,11 +68,16 @@ export default function ReservationForm() {
         <div className=''>
           <Formik
             validationSchema={ReservationSchema}
-            initialValues={{ name: '', phoneNumber: '', date: '', time: '' }}
+            initialValues={{
+              name: '',
+              phoneNumber: '',
+              date: '',
+              time: '',
+              kayak: '',
+            }}
             onSubmit={onSubmit}
           >
-            {({ setFieldValue, errors, touched }) => {
-              console.log(errors)
+            {({ setFieldValue, errors, touched, values, setValues }) => {
               return (
                 <Form>
                   <Field
@@ -83,6 +100,26 @@ export default function ReservationForm() {
                     margin='dense'
                     name='phoneNumber'
                   />
+                  <FormControl variant='standard' fullWidth>
+                    <InputLabel id='demo-simple-select-standard-label'>
+                      Kayaks
+                    </InputLabel>
+                    <Field
+                      as={Select}
+                      name='kayak'
+                      labelId='demo-simple-select-standard-label'
+                      value={kayak}
+                      onChange={(e) => {
+                        setFieldValue('kayak', e.target.value)
+                        setKayak(e.target.value)
+                      }}
+                      label='Kayaks'
+                    >
+                      <MenuItem value={'kayak1'}>kayak1</MenuItem>
+                      <MenuItem value={'kayak2'}>kayak2</MenuItem>
+                      <MenuItem value={'kayak3'}>kayak3</MenuItem>
+                    </Field>
+                  </FormControl>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DatePicker
                       label='Select date'

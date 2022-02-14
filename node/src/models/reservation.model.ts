@@ -25,10 +25,10 @@ export class Reservation {
   })
   phoneNumber!: string
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   time!: Date
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   date!: Date
   @Prop({ enum: Kayaks, required: true })
   kayak!: Kayaks
